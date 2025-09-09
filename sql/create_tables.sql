@@ -8,6 +8,7 @@ DROP TABLE IF EXISTS status;
 -- Create demographics table
 CREATE TABLE demographics (
     customer_id TEXT PRIMARY KEY,
+    count INTEGER,
     gender TEXT,
     age INTEGER,
     under_30 TEXT,
@@ -20,10 +21,12 @@ CREATE TABLE demographics (
 CREATE TABLE location (
     location_id TEXT PRIMARY KEY,
     customer_id TEXT,
+    count INTEGER,
     country TEXT,
     state TEXT,
     city TEXT,
     zip_code TEXT,
+    lat_long TEXT,
     latitude REAL,
     longitude REAL,
     FOREIGN KEY (customer_id) REFERENCES demographics(customer_id)
@@ -38,6 +41,8 @@ CREATE TABLE population (
 CREATE TABLE services (
     service_id TEXT PRIMARY KEY,
     customer_id TEXT,
+    count INTEGER,
+    quarter TEXT,
     referred_friend TEXT,
     num_referrals INTEGER,
     tenure_months INTEGER,
@@ -60,7 +65,7 @@ CREATE TABLE services (
     paperless_billing TEXT,
     payment_method TEXT,
     monthly_charge REAL,
-    total_charges REAL
+    total_charges REAL,
     total_refunds REAL,
     total_extra_data_charges REAL,
     total_long_distance_charges REAL,
@@ -71,11 +76,14 @@ CREATE TABLE services (
 CREATE TABLE status (
     status_id TEXT PRIMARY KEY,
     customer_id TEXT,
+    count INTEGER,
+    quarter TEXT,
     satisfaction_score INTEGER,
-    churned TEXT,
+    customer_status TEXT,
+    churn_label TEXT,
+    churn_value INTEGER,
     churn_score INTEGER,
-    CLTV INTEGER,
-    last_interaction TEXT,
+    cltv INTEGER,
     churn_category TEXT,
     churn_reason TEXT,
     FOREIGN KEY (customer_id) REFERENCES demographics(customer_id)
