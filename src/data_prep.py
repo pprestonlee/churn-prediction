@@ -1,6 +1,5 @@
 from sklearn.preprocessing import StandardScaler, OneHotEncoder
 from sklearn.compose import ColumnTransformer
-from sklearn.pipeline import Pipeline
 import pandas as pd
 
 def load_data(file_path):
@@ -21,9 +20,9 @@ def engineer_features(df):
               'internet_service', 'online_security', 'online_backup', 'device_protection', 'premium_tech_support', 'streaming_tv',
               'streaming_movies', 'streaming_music', 'unlimited_data', 'paperless_billing']
     
-    df['gender'] = df['gender'].map({'Male': 1, 'Female': 0})
+    df.loc[:, 'gender'] = df['gender'].map({'Male': 1, 'Female': 0})
     for col in binary_yn:
-        df[col] = df[col].map({'Yes': 1, 'No': 0})
+        df.loc[:, col] = df[col].map({'Yes': 1, 'No': 0})
     return df
 
 def build_preprocessor():
